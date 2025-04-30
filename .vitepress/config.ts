@@ -6,7 +6,7 @@ export default defineConfig({
   // 设置文档根目录为项目根目录
   srcDir: '.',
   // 设置输出目录
-  outDir: './dist',
+  outDir: './docs',
   // 设置基础路径
   base: '/',
   // 设置语言
