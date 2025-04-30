@@ -1,0 +1,23 @@
+{
+  "name": "python-100-days-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Python 100 天学习文档",
+  "author": "Jackfrued",
+  "license": "MIT",
+  "packageManager": "pnpm@8.15.4",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview ."
+  },
+  "devDependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
+    "vitepress": "^1.0.0-rc.4",
+    "vue": "^3.3.4"
+  }
+}

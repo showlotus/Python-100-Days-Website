@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master1 # 当推送到 master 分支时触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 使用最新的 Ubuntu 运行环境
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 # 检出代码
+        with:
+          fetch-depth: 0 # 获取完整的 git 历史记录
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # 设置 Node.js 环境
+        with:
+          node-version: "20" # 使用 Node.js 20 版本
+          cache: "pnpm" # 启用 pnpm 缓存
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2 # 设置 pnpm
+        with:
+          version: 8 # 使用 pnpm 8 版本
+
+      - name: Install dependencies
+        run: pnpm install # 安装依赖
+
+      - name: Build
+        run: pnpm build # 执行构建命令
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # 使用 gh-pages 部署
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub Token
+          publish_dir: .vitepress/dist # 部署目录
+          publish_branch: gh-pages # 部署到 gh-pages 分支
