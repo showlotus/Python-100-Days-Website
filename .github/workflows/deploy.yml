@@ -1,40 +1,50 @@
-name: Deploy to GitHub Pages
+name: Build and Push
 
 on:
   push:
     branches:
-      - master # 当推送到 master 分支时触发
+      - master # 你想触发这个工作流的分支，可以根据需要修改
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest # 使用最新的 Ubuntu 运行环境
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4 # 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # 获取完整的 git 历史记录
+          persist-credentials: false
+          fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4 # 设置 Node.js 环境
-        with:
-          node-version: "20" # 使用 Node.js 20 版本
-          cache: "pnpm" # 启用 pnpm 缓存
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2 # 设置 pnpm
+      - name: Set node
+        uses: actions/setup-node@v2
         with:
-          version: 8 # 使用 pnpm 8 版本
+          # 根据需要设置 Node.js 版本
+          # node-version: lts/*
+          node-version: "18.x"
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: pnpm install # 安装依赖
+        run: pnpm i
 
-      - name: Build
-        run: pnpm build # 执行构建命令
+      - name: Run build script
+        run: pnpm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3 # 使用 gh-pages 部署
+      - name: Commit build results
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Automated build commit by GitHub Actions" || echo "No changes to commit"
+          # git pull --rebase
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub Token
-          publish_dir: .vitepress/dist # 部署目录
-          publish_branch: gh-pages # 部署到 gh-pages 分支
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # 替换为你想推送的目标分支
+          force: true
