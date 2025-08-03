@@ -281,7 +281,7 @@ export default defineConfig({
       },
     ],
     // 设置社交链接
-    socialLinks: [{ icon: 'github', link: 'https://github.com/jackfrued/python-100-days' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/showlotus/Python-100-Days-Website' }],
     // 设置页脚
     footer: {
       message: 'Released under the MIT License.',

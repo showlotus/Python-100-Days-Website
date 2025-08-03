@@ -10,8 +10,8 @@ hero:
       text: 开始学习
       link: /Day01-20/index.md
     - theme: alt
-      text: 查看更新日志
-      link: /更新日志.md
+      text: 源站点
+      link: https://github.com/jackfrued/python-100-days
 
 features:
   - icon: 🚀
