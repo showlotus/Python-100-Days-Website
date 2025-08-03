@@ -1,5 +1,12 @@
 import { defineConfig } from 'vitepress'
 
+const useBase = (url: string) => {
+  if (process.env.NODE_ENV === 'production') {
+    return `/Python-100-Days-Website/${url}`
+  }
+  return `/${url}`
+}
+
 export default defineConfig({
   title: 'Python 100 天学习',
   description: 'Python 100 天学习文档',
@@ -8,7 +15,7 @@ export default defineConfig({
   // 设置输出目录
   outDir: './docs',
   // 设置基础路径
-  base: '/',
+  base: useBase(''),
   // 设置语言
   lang: 'zh-CN',
   // 设置最后更新时间
@@ -16,7 +23,7 @@ export default defineConfig({
   // 设置静态资源目录
   // publicDir: '.',
   // 设置图标
-  head: [['link', { rel: 'icon', href: '/python-logo.png' }]],
+  head: [['link', { rel: 'icon', href: useBase('python-logo.png') }]],
   // 设置主题配置
   themeConfig: {
     // 设置导航栏
