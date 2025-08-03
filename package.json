@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Python 100 天学习文档",
-  "author": "Jackfrued",
+  "author": "showlotus",
   "license": "MIT",
   "packageManager": "pnpm@8.15.4",
   "engines": {
